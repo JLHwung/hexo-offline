@@ -1,0 +1,45 @@
+{
+  "name": "hexo-offline",
+  "version": "0.1.0",
+  "description": "Cache your static hexo pages to view offline",
+  "main": "lib/index.js",
+  "repository": "https://github.com/JLHwung/hexo-offline.git",
+  "author": "J Huang <i@jhuang.me>",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "clean": "rimraf lib",
+    "build:template": "babel src/lib/template.js --out-file lib/lib/template.js --presets=babili --no-babelrc --no-comments",
+    "build:lib": "babel src --out-dir lib",
+    "build": "npm run build:lib && npm run build:template",
+    "lint": "standard",
+    "test": "cross-env NODE_ENV=test nyc tap test/**/*.spec.js",
+    "coverage": "nyc report",
+    "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
+  },
+  "dependencies": {
+    "sw-precache": "^4.2.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-plugin-istanbul": "^3.0.0",
+    "babel-preset-babili": "^0.0.9",
+    "babel-preset-env": "^1.1.4",
+    "babel-register": "^6.18.0",
+    "cross-env": "^3.1.3",
+    "nyc": "^10.0.0",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.5.4",
+    "standard": "^8.6.0",
+    "tap": "^8.0.1"
+  },
+  "peerDependencies": {
+    "hexo": "^3.2.2"
+  },
+  "pre-commit": "lint",
+  "standard": {
+    "ignore": [
+      "/src/lib/template.js"
+    ]
+  }
+}

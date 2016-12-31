@@ -1,0 +1,18 @@
+{
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ],
+      "presets": [
+        ["env", {
+            "targets": { "node": 4 }
+          }]
+      ]
+    }
+  },
+  "ignore": ["./src/lib/template.js"],
+  "presets": [
+    ["env", {
+        "targets": { "node": 4 }
+      }]
+  ]
+}

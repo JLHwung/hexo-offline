@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "4"
+  - "6"
+  - "7"
+
+cache: yarn
+after_success:
+  - yarn add coveralls
+  - yarn run coverage -- --reporter=text-lcov | ./node_modules/.bin/coveralls

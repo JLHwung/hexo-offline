@@ -39,5 +39,6 @@ jspm_packages
 # IntelliJ IDEA
 .idea
 
-# Built lib
-/lib/
+# src and test
+/src/
+/test/
