@@ -1,7 +1,7 @@
 {
   "name": "hexo-offline",
   "version": "0.1.0",
-  "description": "Cache your static hexo pages to view offline",
+  "description": "Out-of-the-box hexo offline experience",
   "main": "lib/index.js",
   "repository": "https://github.com/JLHwung/hexo-offline.git",
   "author": "J Huang <i@jhuang.me>",
