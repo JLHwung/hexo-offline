@@ -42,3 +42,6 @@ jspm_packages
 # src and test
 /src/
 /test/
+
+# appveyor config
+/appveyor.yml
