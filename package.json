@@ -12,8 +12,9 @@
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
     "lint": "standard",
-    "test": "cross-env NODE_ENV=test nyc tap test/**/*.spec.js",
+    "test": "cross-env NODE_ENV=test nyc tap test/**/*.spec.js && npm run spellcheck",
     "coverage": "nyc report",
+    "spellcheck": "yaspeller .",
     "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
   },
   "dependencies": {
@@ -31,7 +32,8 @@
     "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
     "standard": "^8.6.0",
-    "tap": "^9.0.1"
+    "tap": "^9.0.1",
+    "yaspeller": "^3.0.0"
   },
   "peerDependencies": {
     "hexo": "^3.2.2"

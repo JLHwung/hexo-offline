@@ -1,0 +1,22 @@
+{
+  "lang": "en",
+  "dictionary": [
+    "appveyor",
+    "hexo",
+    "precache",
+    "ServiceWorker",
+    "sw",
+    "travis"
+  ],
+  "excludeFiles": [
+    ".git",
+    "lib",
+    "node_modules"
+  ],
+  "fileExtensions": [
+    ".md"
+  ],
+  "ignoreText": [
+    "\\([a-f0-9]+\\)"
+  ]
+}
