@@ -4,9 +4,12 @@
     "appveyor",
     "hexo",
     "precache",
+    "prepublish",
+    "prepublishOnly",
     "ServiceWorker",
     "sw",
-    "travis"
+    "travis",
+    "yaspeller"
   ],
   "excludeFiles": [
     ".git",
