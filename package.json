@@ -18,7 +18,7 @@
     "prepublishOnly": "npm run lint && npm run test && npm run clean && npm run build"
   },
   "dependencies": {
-    "sw-precache": "^4.2.3"
+    "sw-precache": "^4.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

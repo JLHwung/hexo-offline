@@ -3019,9 +3019,9 @@ supports-color@^3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-sw-precache@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/sw-precache/-/sw-precache-4.2.3.tgz#2ba4c213f962d3d138a9c454c1d0c7d3296762bc"
+sw-precache@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/sw-precache/-/sw-precache-4.3.0.tgz#576c6c1c23b61c44ef5d84d33870641060d8c2de"
   dependencies:
     dom-urls "^1.1.0"
     es6-promise "^4.0.5"
