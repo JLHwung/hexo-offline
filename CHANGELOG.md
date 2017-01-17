@@ -1,3 +1,9 @@
+#### 0.1.3 (2017-1-17)
+
+##### Chores
+
+* **yaspeller:** add words to dictionary (40775e56)
+
 #### 0.1.2 (2017-1-17)
 
 ##### Chores
