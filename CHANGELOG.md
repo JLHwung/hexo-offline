@@ -1,3 +1,17 @@
+### 0.2.0 (2017-2-17)
+
+##### Chores
+
+* **yaspeller:** add words to dictionary (316eac55)
+* **package:**
+  * update babel-preset-babili to version 0.0.11 (333e85e1)
+  * update tap to version 10.0.1 (672ecc66)
+  * update babel-preset-babili to version 0.0.10 (6a082c0d)
+
+##### Bug Fixes
+
+* **package:** update sw-precache to version 5.0.0 (6d5719a1)
+
 #### 0.1.3 (2017-1-17)
 
 ##### Chores
