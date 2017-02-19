@@ -35,3 +35,29 @@ test('inject-sw-register should not throw when index.html is not found', (t) => 
   fs.rmdirSync(publicDir)
   t.end()
 })
+
+test('inject-sw-register should not inject script agian once injected', (t) => {
+  const publicDir = path.resolve('./inject-sw-register.spec')
+  fs.mkdirSync(publicDir)
+
+  const html = [
+    '<html>',
+    '<body>',
+    '</body>  ',
+    '</html>'
+  ].join('\n')
+  const indexHTMLPath = path.join(publicDir, 'index.html')
+  fs.writeFileSync(indexHTMLPath, html)
+
+  injectSWRegister(publicDir)
+  const content = fs.readFileSync(indexHTMLPath, 'utf-8')
+
+  injectSWRegister(publicDir)
+  const newContent = fs.readFileSync(indexHTMLPath, 'utf-8')
+
+  t.equal(content, newContent)
+
+  fs.unlinkSync(indexHTMLPath)
+  fs.rmdirSync(publicDir)
+  t.end()
+})
