@@ -1,3 +1,21 @@
+#### 0.2.1 (2017-2-20)
+
+##### Chores
+
+* **package:** update babel-plugin-istanbul to version 4.0.0 (87589b23)
+
+##### Documentation Changes
+
+* **readme:** add CDN contents usage (4432e0b4)
+
+##### Bug Fixes
+
+* **inject-sw-register:** early return when injected before (7d4b61fd)
+
+##### Tests
+
+* **inject-sw-register:** add test case on duplicated injection (bfa88df9)
+
 ### 0.2.0 (2017-2-17)
 
 ##### Chores
