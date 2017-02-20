@@ -3,7 +3,9 @@
   "dictionary": [
     "appveyor",
     "babili",
+    "CDN",
     "hexo",
+    "istanbul",
     "precache",
     "prepublish",
     "prepublishOnly",
