@@ -15,16 +15,47 @@ npm i hexo-offline --save
 Once installed, run `hexo clean && hexo generate` to activate offline experience.
 
 ## Usage
-hexo-offline aims to provide out-of-the-box offline enhancement to your hexo project. Meanwhile it offers full list of options control from [sw-precache](https://github.com/GoogleChrome/sw-precache#options-parameter). Simply add your configuration to the root `_config.yml`.
+If the website serves all content from the origin server, you don't have to add any config. Simply install and run `hexo clean && hexo generate`.
+
+While hexo-offline aims to provide zero-config offline enhancement to your hexo project, it does offer full list of options control from [sw-precache](https://github.com/GoogleChrome/sw-precache#options-parameter). Simply add your configuration to the root `_config.yml`.
 
 ```yaml
-# offline config passed to sw-precache
+# offline config passed to sw-precache.
 offline:
   maximumFileSizeToCacheInBytes: 5242880
   staticFileGlobs:
-  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}
+  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
   stripPrefix: public
   verbose: true
 ```
+
+Again, the config is demonstration only and you don't have to copy and paste if you serves all contents from the origin server.
+
+### How if content serves via CDN?
+
+Suppose that you have used two CDN scripts:
+```yaml
+- https://cdn.example.com/script-name/script-version.js
+- http://cdn.another-example.org/script-name/script-version.css
+```
+
+Add this config to root `_config.yml`
+```yaml
+offline:
+  runtimeCaching:
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: cdn.example.com
+    - urlPattern: /*
+      handler: cacheFirst
+      options:
+        origin: cdn.another-example.org
+```
+
+Note:
+
+1. As the CDN resources is runtime cached, it means that the resource will be cached only after a user-agent visit the page where the resource is referenced. Therefore, if you have included a CDN resource `example.com/script.js` in `some-page.html` only, the user who visit `index.html` only would not have `example.com/script.js` in cache.
+1. we use `cacheFirst` handler as CDN resources with specific version are not supposed to change in the future.
 
 ## [Demo](https://jhuang.me)
