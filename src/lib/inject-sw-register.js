@@ -18,6 +18,12 @@ const injectSWRegisterWithContent = (script) => (publicDir) => {
   }
 
   const fileContent = fs.readFileSync(indexHTMLPath, 'utf-8')
+
+  // early return if it has been injected before
+  if (fileContent.includes(`${script}</body></html>`)) {
+    return
+  }
+
   const injectedContent = fileContent.replace(/<\/body>\s*<\/html>\s*$/, `${script}</body></html>`)
   fs.writeFileSync(indexHTMLPath, injectedContent)
 }
