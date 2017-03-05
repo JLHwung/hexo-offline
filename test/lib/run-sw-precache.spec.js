@@ -71,4 +71,3 @@ test('run-sw-precache should not generate service-worker.js when index.html is n
     t.end()
   })
 })
-
