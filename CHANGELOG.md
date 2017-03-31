@@ -1,3 +1,17 @@
+#### 0.2.2 (2017-3-31)
+
+##### Chores
+
+* **yaspeller:** update dictionary (1793a9f5)
+* **package:**
+  * upgrade sw-precache to version 5.1.0 (dc7feb09)
+  * update babel-preset-env to version 1.3.2 (6f1b0f49)
+  * update cross-env to version 4.0.0 (09b6024d)
+  * update standard to version 9.0.0 (67a28e13)
+  * re-generate yarn lockfile using default registry (4b9e5d55)
+  * update cross-env to version 3.2.3 (c0e4b6ef)
+  * update babel-preset-babili to version 0.0.12 (f172fa6e)
+
 #### 0.2.1 (2017-2-20)
 
 ##### Chores
