@@ -34,7 +34,7 @@
     "yaspeller": "^3.0.0"
   },
   "peerDependencies": {
-    "hexo": "^3.2.2"
+    "hexo": "3.3.0"
   },
   "pre-commit": "lint",
   "standard": {
