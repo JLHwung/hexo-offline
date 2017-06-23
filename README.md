@@ -8,6 +8,9 @@
 
 hexo-offline is intended to provide offline experience for [hexo](https://hexo.io) built static website. It uses *ServiceWorker* under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
 
+## Demo
+- [vuejs.org](https://vuejs.org): Read Vuejs documentation in the flight.
+
 ## Install
 ```bash
 npm i hexo-offline --save
@@ -57,5 +60,3 @@ Note:
 
 1. As the CDN resources is runtime cached, it means that the resource will be cached only after a user-agent visit the page where the resource is referenced. Therefore, if you have included a CDN resource `example.com/script.js` in `some-page.html` only, the user who visit `index.html` only would not have `example.com/script.js` in cache.
 1. we use `cacheFirst` handler as CDN resources with specific version are not supposed to change in the future.
-
-## [Demo](https://jhuang.me)
