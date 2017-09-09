@@ -31,7 +31,7 @@
     "rimraf": "^2.5.4",
     "standard": "^10.0.0",
     "tap": "^10.0.1",
-    "yaspeller": "^3.0.0"
+    "yaspeller": "^4.0.0"
   },
   "peerDependencies": {
     "hexo": "^3.2.2"
