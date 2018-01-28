@@ -14,7 +14,7 @@
     "lint": "standard",
     "test": "cross-env NODE_ENV=test nyc tap test/**/*.spec.js && npm run spellcheck",
     "coverage": "nyc report",
-    "spellcheck": "yaspeller README.md",
+    "spellcheck": "yaspeller-ci README.md",
     "prepublishOnly": "npm run lint && npm run test && npm run clean && npm run build"
   },
   "dependencies": {
@@ -31,7 +31,7 @@
     "rimraf": "^2.5.4",
     "standard": "^10.0.0",
     "tap": "^11.0.1",
-    "yaspeller": "^4.0.0"
+    "yaspeller-ci": "^1.0.0"
   },
   "peerDependencies": {
     "hexo": "^3.2.2"
