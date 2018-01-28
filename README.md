@@ -34,7 +34,7 @@ offline:
 
 Again, the config is demonstration only and you don't have to copy and paste if you serves all contents from the origin server.
 
-### How if content serves via CDN?
+### How if content is served via CDN?
 
 Suppose that you have used two CDN scripts:
 ```yaml
