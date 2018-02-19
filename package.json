@@ -29,7 +29,7 @@
     "nyc": "^11.0.2",
     "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
-    "standard": "^10.0.0",
+    "standard": "^11.0.0",
     "tap": "^11.0.1",
     "yaspeller-ci": "^1.0.0"
   },
