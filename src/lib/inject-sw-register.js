@@ -6,7 +6,7 @@ const template = fs.readFileSync(path.join(__dirname, './template.js'), 'utf-8')
 
 const helperSWRegister = function () {
   const registerContent = template.replace('__workerName__', workerName)
-  return `<script async>${registerContent}</script>`
+  return `<script>${registerContent}</script>`
 }
 
 const injectSWRegisterWithContent = (script) => (publicDir) => {
