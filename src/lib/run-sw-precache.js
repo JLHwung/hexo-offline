@@ -5,7 +5,7 @@ import { workerName } from './constants'
 
 const generateSWPrecacheConfig = ({
   root,
-  public_dir,
+  publicDir,
   logger
 }, extraSWPrecacheConfig) => {
   const hexoPublicDir = 'public'
@@ -20,7 +20,7 @@ const generateSWPrecacheConfig = ({
 
 const runSWPrecache = function () {
   const {
-    public_dir,
+    public_dir: publicDir,
     config,
     log
   } = this
@@ -31,14 +31,14 @@ const runSWPrecache = function () {
   } = config
 
   // early return when no index.html presets in public directory
-  const indexHTMLPath = path.join(public_dir, 'index.html')
+  const indexHTMLPath = path.join(publicDir, 'index.html')
   if (!fs.existsSync(indexHTMLPath)) {
     return Promise.resolve()
   }
 
-  const SWPrecacheConfig = generateSWPrecacheConfig({ root, public_dir, logger: log.info.bind(log) }, offline)
+  const SWPrecacheConfig = generateSWPrecacheConfig({ root, publicDir, logger: log.info.bind(log) }, offline)
 
-  return SWPrecache.write(path.join(public_dir, workerName), SWPrecacheConfig)
+  return SWPrecache.write(path.join(publicDir, workerName), SWPrecacheConfig)
 }
 
 export default runSWPrecache
