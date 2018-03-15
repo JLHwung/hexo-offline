@@ -8,7 +8,7 @@ const generateSWPrecacheConfig = ({
   publicDir,
   logger
 }, extraSWPrecacheConfig) => {
-  const hexoPublicDir = 'public'
+  const hexoPublicDir = publicDir
   const rootPrefix = root.replace(/\/$/, '')
   return Object.assign({
     logger,
