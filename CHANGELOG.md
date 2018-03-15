@@ -1,3 +1,44 @@
+#### 0.2.3 (2018-03-15)
+
+##### Chores
+
+* **package:**
+  *  update standard to version 11.0.1 (e68823a0)
+  *  use yaspeller-ci (159bacc4)
+  *  does not spellcheck CHANGELOG.md (017b5d40)
+  *  update lockfile (9599ee3f)
+  *  update tap to version 11.0.1 (7bb8fad0)
+  *  remove package-lock (d2fa713b)
+  *  update yarn lockfile (6164d774)
+  *  update lockfile (7dfc5419)
+  *  update yaspeller to version 4.0.0 (eb7b6a11)
+  *  upgrade dependencies to latest version (5f1bb1a0)
+  *  update nyc to version 11.0.2 (f075611c)
+  *  add package-lock (53d1f274)
+  *  upgrade dependencies (e1bc34b4)
+  *  update babel-preset-babili to version 0.1.1 (ccabd582)
+  *  update cross-env to version 5.0.0 (f7180935)
+  *  regenerate yarn lockfile (b97f7d6a)
+  *  update standard to version 10.0.0 (3c209f06)
+* **appveyor:**
+  *  use yarn cache in appveyor (f34bbd51)
+  *  use bundled npm version (8fd7e21d)
+* **travis:**
+  *  add greenkeeper lockfile (6bdc17b6)
+  *  use node as latest node.js build target (178aac46)
+* **yaspeller:**  add vuejs to dictionary (46dce2db)
+
+##### Documentation Changes
+
+* **README:**  fix typo (ad34600c)
+* **readme:**  add vuejs.org as demo site (7c89bf62)
+
+##### Bug Fixes
+
+* **run-sw-precache:**  remove hardcoded public directory (c178610e)
+* **inject-sw-register:**  remove async attribute on script (9d735e04)
+* **appveyor:**  use yarn as install process (e6526892)
+
 #### 0.2.2 (2017-3-31)
 
 ##### Chores
