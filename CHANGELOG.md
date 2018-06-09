@@ -1,3 +1,12 @@
+## 1.0.0 (2018-06-09)
+
+##### Chores
+
+* **package:**
+  *  drop node.js 4 support (66b55e0e)
+  *  update dependencies (4b983894)
+* **npmignore:**  include lib only in package (9c6bcbd6)
+
 #### 0.2.3 (2018-03-15)
 
 ##### Chores
