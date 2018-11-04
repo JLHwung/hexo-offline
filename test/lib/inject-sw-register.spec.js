@@ -1,63 +1,49 @@
-import { test } from 'tap'
-import fs from 'fs'
-import path from 'path'
-import injectSWRegister from '../../src/lib/inject-sw-register'
+import fs from "fs";
+import path from "path";
+import injectSWRegister from "../../src/lib/inject-sw-register";
 
-test('inject-sw-register should inject script when index.html presents', (t) => {
-  const publicDir = path.resolve('./inject-sw-register.spec')
-  fs.mkdirSync(publicDir)
+test("inject-sw-register should inject script when index.html presents", () => {
+  const publicDir = path.resolve("./inject-sw-register.spec");
+  fs.mkdirSync(publicDir);
 
-  const html = [
-    '<html>',
-    '<body>',
-    '</body>  ',
-    '</html>'
-  ].join('\n')
-  const indexHTMLPath = path.join(publicDir, 'index.html')
-  fs.writeFileSync(indexHTMLPath, html)
+  const html = ["<html>", "<body>", "</body>  ", "</html>"].join("\n");
+  const indexHTMLPath = path.join(publicDir, "index.html");
+  fs.writeFileSync(indexHTMLPath, html);
 
-  injectSWRegister(publicDir)
-  const content = fs.readFileSync(indexHTMLPath, 'utf-8')
+  injectSWRegister(publicDir);
+  const content = fs.readFileSync(indexHTMLPath, "utf-8");
 
-  t.ok(content.includes('</script></body></html>'))
+  expect(content).toContain("</script></body></html>");
 
-  fs.unlinkSync(indexHTMLPath)
-  fs.rmdirSync(publicDir)
-  t.end()
-})
+  fs.unlinkSync(indexHTMLPath);
+  fs.rmdirSync(publicDir);
+});
 
-test('inject-sw-register should not throw when index.html is not found', (t) => {
-  const publicDir = path.resolve('./inject-sw-register.spec')
-  fs.mkdirSync(publicDir)
+test("inject-sw-register should not throw when index.html is not found", () => {
+  const publicDir = path.resolve("./inject-sw-register.spec");
+  fs.mkdirSync(publicDir);
 
-  t.doesNotThrow(() => injectSWRegister(publicDir))
+  expect(() => injectSWRegister(publicDir)).not.toThrow();
 
-  fs.rmdirSync(publicDir)
-  t.end()
-})
+  fs.rmdirSync(publicDir);
+});
 
-test('inject-sw-register should not inject script agian once injected', (t) => {
-  const publicDir = path.resolve('./inject-sw-register.spec')
-  fs.mkdirSync(publicDir)
+test("inject-sw-register should not inject script agian once injected", () => {
+  const publicDir = path.resolve("./inject-sw-register.spec");
+  fs.mkdirSync(publicDir);
 
-  const html = [
-    '<html>',
-    '<body>',
-    '</body>  ',
-    '</html>'
-  ].join('\n')
-  const indexHTMLPath = path.join(publicDir, 'index.html')
-  fs.writeFileSync(indexHTMLPath, html)
+  const html = ["<html>", "<body>", "</body>  ", "</html>"].join("\n");
+  const indexHTMLPath = path.join(publicDir, "index.html");
+  fs.writeFileSync(indexHTMLPath, html);
 
-  injectSWRegister(publicDir)
-  const content = fs.readFileSync(indexHTMLPath, 'utf-8')
+  injectSWRegister(publicDir);
+  const content = fs.readFileSync(indexHTMLPath, "utf-8");
 
-  injectSWRegister(publicDir)
-  const newContent = fs.readFileSync(indexHTMLPath, 'utf-8')
+  injectSWRegister(publicDir);
+  const newContent = fs.readFileSync(indexHTMLPath, "utf-8");
 
-  t.equal(content, newContent)
+  expect(content).toBe(newContent);
 
-  fs.unlinkSync(indexHTMLPath)
-  fs.rmdirSync(publicDir)
-  t.end()
-})
+  fs.unlinkSync(indexHTMLPath);
+  fs.rmdirSync(publicDir);
+});

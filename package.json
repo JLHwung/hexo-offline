@@ -8,39 +8,32 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "clean": "rimraf lib",
-    "build:template": "babel src/lib/template.js --out-file lib/lib/template.js --presets=babili --no-babelrc --no-comments",
+    "build:template": "babel src/lib/template.js --out-file lib/lib/template.js --presets=minify --no-babelrc --no-comments",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
-    "lint": "standard",
-    "test": "cross-env NODE_ENV=test nyc tap test/**/*.spec.js && npm run spellcheck",
-    "coverage": "nyc report",
+    "test": "jest && npm run spellcheck",
     "spellcheck": "yaspeller-ci README.md",
-    "prepublishOnly": "npm run lint && npm run test && npm run clean && npm run build"
+    "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
   "dependencies": {
     "sw-precache": "^5.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-istanbul": "^4.1.6",
-    "babel-preset-babili": "^0.1.1",
-    "babel-preset-env": "^1.7.0",
-    "cross-env": "^5.1.6",
-    "nyc": "^12.0.2",
-    "pre-commit": "^1.2.2",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-preset-minify": "^0.5.0",
+    "husky": "^1.1.3",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.0.3",
+    "prettier": "^1.14.3",
     "rimraf": "^2.6.2",
-    "standard": "^11.0.1",
-    "tap": "^12.0.1",
     "yaspeller-ci": "^1.0.0"
   },
   "peerDependencies": {
     "hexo": "^3.2.2"
-  },
-  "pre-commit": "lint",
-  "standard": {
-    "ignore": [
-      "/src/lib/template.js"
-    ]
   },
   "files": [
     "lib"
