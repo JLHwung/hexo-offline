@@ -1,1 +1,1 @@
-export const workerName = 'service-worker.js'
+export const workerName = "service-worker.js";

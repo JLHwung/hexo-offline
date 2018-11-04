@@ -1,4 +1,5 @@
 # hexo-offline
+
 [![npm version](https://img.shields.io/npm/v/hexo-offline.svg?style=flat-square)](https://www.npmjs.com/package/hexo-offline)
 [![Build Status](https://img.shields.io/travis/JLHwung/hexo-offline.svg?style=flat-square)](https://travis-ci.org/JLHwung/hexo-offline)
 [![AppVeyor build status](https://img.shields.io/appveyor/ci/JLHwung/hexo-offline.svg?style=flat-square)](https://ci.appveyor.com/project/JLHwung/hexo-offline)
@@ -6,18 +7,22 @@
 [![Dependencies Status](https://img.shields.io/david/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline)
 [![Dev Dependencies Status](https://img.shields.io/david/dev/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline?type=dev)
 
-hexo-offline is intended to provide offline experience for [hexo](https://hexo.io) built static website. It uses *ServiceWorker* under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
+hexo-offline is intended to provide offline experience for [hexo](https://hexo.io) built static website. It uses _ServiceWorker_ under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
 
 ## Demo
+
 - [vuejs.org](https://vuejs.org): Read Vuejs documentation in the flight.
 
 ## Install
+
 ```bash
 npm i hexo-offline --save
 ```
+
 Once installed, run `hexo clean && hexo generate` to activate offline experience.
 
 ## Usage
+
 If the website serves all content from the origin server, you don't have to add any config. Simply install and run `hexo clean && hexo generate`.
 
 While hexo-offline aims to provide zero-config offline enhancement to your hexo project, it does offer full list of options control from [sw-precache](https://github.com/GoogleChrome/sw-precache#options-parameter). Simply add your configuration to the root `_config.yml`.
@@ -27,7 +32,7 @@ While hexo-offline aims to provide zero-config offline enhancement to your hexo 
 offline:
   maximumFileSizeToCacheInBytes: 5242880
   staticFileGlobs:
-  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+    - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
   stripPrefix: public
   verbose: true
 ```
@@ -37,12 +42,14 @@ Again, the config is demonstration only and you don't have to copy and paste if 
 ### How if content is served via CDN?
 
 Suppose that you have used two CDN scripts:
+
 ```yaml
 - https://cdn.example.com/script-name/script-version.js
 - http://cdn.another-example.org/script-name/script-version.css
 ```
 
 Add this config to root `_config.yml`
+
 ```yaml
 offline:
   runtimeCaching:

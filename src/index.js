@@ -1,4 +1,4 @@
 /* global hexo */
-import handler from './lib'
+import handler from "./lib";
 
-hexo.extend.filter.register('before_exit', handler)
+hexo.extend.filter.register("before_exit", handler);
