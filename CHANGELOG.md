@@ -1,3 +1,23 @@
+#### 1.0.1 (2018-12-06)
+
+##### Chores
+
+- **package:**
+  - update yarn lockfiles (0225b25c)
+  - update devDependencies (638f390a)
+- **deps:**
+  - update babel monorepo to v7.2.0 (#57) (9d9babcd)
+  - update dependency prettier to v1.15.3 (#56) (845477f6)
+  - update dependency lint-staged to v8.1.0 (#54) (b0abea6f)
+  - update dependency prettier to v1.15.2 (bf02d99e)
+  - update dependency husky to v1.2.0 (0cf31bee)
+  - update babel monorepo (d1c93593)
+  - pin dependencies (#51) (b305ad1f)
+
+##### Code Style Changes
+
+- format whole project (15deac7a)
+
 ## 1.0.0 (2018-06-09)
 
 ##### Chores
