@@ -29,7 +29,7 @@
     "jest": "23.6.0",
     "lint-staged": "8.1.0",
     "prettier": "1.15.3",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "yaspeller-ci": "1.0.0"
   },
   "peerDependencies": {
