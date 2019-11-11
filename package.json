@@ -33,7 +33,7 @@
     "yaspeller-ci": "1.0.0"
   },
   "peerDependencies": {
-    "hexo": "^3.2.2"
+    "hexo": "^3.2.2 || ^4.0.0"
   },
   "files": [
     "lib"
