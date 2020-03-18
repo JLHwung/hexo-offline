@@ -2,6 +2,7 @@
   "devDependencies": {
     "automerge": true
   },
+  "rangeStrategy": "replace",
   "extends": [
     "config:base"
   ]
