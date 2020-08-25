@@ -32,7 +32,7 @@
     "yaspeller-ci": "^1.0.2"
   },
   "peerDependencies": {
-    "hexo": "^3.2.2 || ^4.0.0"
+    "hexo": "^5.0.0"
   },
   "engines": {
     "node": ">=10"
