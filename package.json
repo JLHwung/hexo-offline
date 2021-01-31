@@ -8,7 +8,7 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "clean": "rimraf lib",
-    "build:template": "babel src/lib/template.js --out-file lib/lib/template.js",
+    "build:template": "babel src/lib/template.js --out-file lib/lib/template.js && terser lib/lib/template.js -o lib/lib/template.js",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
     "test": "jest && npm run spellcheck",
