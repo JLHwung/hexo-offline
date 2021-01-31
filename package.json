@@ -11,7 +11,7 @@
     "build:template": "babel src/lib/template.js --out-file lib/lib/template.js && terser lib/lib/template.js -o lib/lib/template.js",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
-    "test": "jest && npm run spellcheck",
+    "test": "jest",
     "spellcheck": "yaspeller-ci README.md",
     "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
