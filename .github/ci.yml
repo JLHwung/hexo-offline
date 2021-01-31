@@ -66,7 +66,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Test
         run: |
-          yarn test
+          yarn test --coverage
       - name: Coveralls GitHub Action
         if: matrix.node-version == '*'
         uses: coverallsapp/github-action@v1.1.2

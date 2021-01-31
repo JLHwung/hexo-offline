@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import runWorkboxBuild from "../../src/lib/run-workbox-build";
+import runWorkboxBuild from "../../src/lib/run-workbox-build.js";
 import { workerName } from "../../src/lib/constants";
 
 test("run-workbox-build should generate service-worker.js when index.html presents", () => {
