@@ -41,3 +41,10 @@ jspm_packages
 
 # Built lib
 /lib/
+
+# Yarn 2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.js
