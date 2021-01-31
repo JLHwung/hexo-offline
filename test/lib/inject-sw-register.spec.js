@@ -28,7 +28,7 @@ test("inject-sw-register should not throw when index.html is not found", () => {
   fs.rmdirSync(publicDir);
 });
 
-test("inject-sw-register should not inject script agian once injected", () => {
+test("inject-sw-register should not inject script again once injected", () => {
   const publicDir = path.resolve("./inject-sw-register.spec");
   fs.mkdirSync(publicDir);
 
