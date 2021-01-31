@@ -14,7 +14,8 @@
     "ServiceWorker",
     "sw",
     "travis",
-    "vuejs",
+    "v1",
+    "workbox",
     "yaspeller"
   ],
   "excludeFiles": [

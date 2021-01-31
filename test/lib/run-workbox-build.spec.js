@@ -1,69 +1,97 @@
 import fs from "fs";
 import path from "path";
+import rimraf from "rimraf";
 import runWorkboxBuild from "../../src/lib/run-workbox-build.js";
 import { workerName } from "../../src/lib/constants";
+const baseDir = process.cwd();
 
-test("run-workbox-build should generate service-worker.js when index.html presents", () => {
+describe("run-workbox-build", () => {
   const publicDir = path.resolve("./run-workbox-build.spec");
-  fs.mkdirSync(publicDir);
-
-  const html = ["<html>", "<body></body>", "</html>"].join("\n");
   const indexHTMLPath = path.join(publicDir, "index.html");
-  fs.writeFileSync(indexHTMLPath, html);
-
-  const context = {
-    public_dir: publicDir,
-    config: {
-      root: "/",
-      offline: {},
-    },
-  };
-
-  const cleanup = () => {
-    fs.unlinkSync(indexHTMLPath);
-    fs.rmdirSync(publicDir);
-  };
-
-  return runWorkboxBuild.call(context).then(
-    () => {
-      const workerPath = path.join(publicDir, workerName);
-      expect(fs.existsSync(workerPath)).toBe(true);
-      fs.unlinkSync(workerPath);
-      cleanup();
-    },
-    (error) => {
-      console.error(error);
-      cleanup();
-    }
-  );
+  const workerPath = path.join(publicDir, workerName);
+  beforeAll(() => {
+    rimraf.sync(publicDir);
+    fs.mkdirSync(publicDir);
+    const html = ["<html>", "<body></body>", "</html>"].join("\n");
+    fs.writeFileSync(indexHTMLPath, html);
+  });
+  afterAll((cb) => {
+    rimraf(publicDir, cb);
+  });
+  it("should generate service-worker.js when index.html presents", async () => {
+    const context = {
+      public_dir: publicDir,
+      base_dir: baseDir,
+      config: {},
+      log: {
+        warn: jest.fn(),
+        info: jest.fn(),
+      },
+    };
+    await runWorkboxBuild.call(context);
+    expect(fs.existsSync(workerPath)).toBe(true);
+  });
 });
 
-test("run-workbox-build should not generate service-worker.js when index.html is not found", () => {
+describe("run-workbox-build", () => {
   const publicDir = path.resolve("./run-workbox-build.spec");
-  fs.mkdirSync(publicDir);
+  const indexHTMLPath = path.join(publicDir, "index.html");
+  const workerPath = path.join(publicDir, workerName);
+  beforeAll(() => {
+    rimraf.sync(publicDir);
+    fs.mkdirSync(publicDir);
+  });
+  afterAll((cb) => {
+    rimraf(publicDir, cb);
+  });
 
-  const context = {
-    public_dir: publicDir,
-    config: {
-      root: "/",
-      offline: {},
-    },
-    log: console,
-  };
+  it("should not generate service-worker.js when index.html is not found", async () => {
+    const context = {
+      public_dir: publicDir,
+      base_dir: baseDir,
+      config: {},
+      log: {
+        warn: jest.fn(),
+        info: jest.fn(),
+      },
+    };
+    await runWorkboxBuild.call(context);
+    expect(fs.existsSync(workerPath)).toBe(false);
+  });
+});
 
-  const cleanup = () => {
-    fs.rmdirSync(publicDir);
-  };
+describe("run-workbox-build", () => {
+  const publicDir = path.resolve("./run-workbox-build.spec");
+  const indexHTMLPath = path.join(publicDir, "index.html");
+  beforeAll(() => {
+    rimraf.sync(publicDir);
+    fs.mkdirSync(publicDir);
+    const html = ["<html>", "<body></body>", "</html>"].join("\n");
+    fs.writeFileSync(indexHTMLPath, html);
+  });
+  afterAll((cb) => {
+    rimraf(publicDir, cb);
+  });
 
-  return runWorkboxBuild.call(context).then(
-    () => {
-      const workerPath = path.join(publicDir, workerName);
-      expect(fs.existsSync(workerPath)).toBe(false);
-      cleanup();
-    },
-    (error) => {
-      console.error(error);
-      cleanup();
-    }
-  );
+  it("should print warning when 'offline' is in the config section", async () => {
+    const context = {
+      public_dir: publicDir,
+      base_dir: baseDir,
+      config: {
+        offline: {},
+      },
+      log: {
+        warn: jest.fn(),
+        info: jest.fn(),
+      },
+    };
+    await runWorkboxBuild.call(context);
+    expect(context.log.warn.mock.calls[0][0]).toMatchInlineSnapshot(`
+      "
+      Starting from hexo-offline v2 the 'offline' config in _config.yaml is
+      deprecated. Please create 'hexo-offline.config.cjs' in hexo root directory.
+      See https://github.com/JLHwung/hexo-offline#usage for more info.
+      "
+    `);
+  });
 });

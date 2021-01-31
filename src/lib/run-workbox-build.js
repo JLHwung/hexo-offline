@@ -3,26 +3,43 @@ import path from "path";
 import { generateSW } from "workbox-build";
 import { workerName } from "./constants";
 
-const generateSWPrecacheConfig = (
-  { root, publicDir },
-  extraWorkboxBuildConfig
-) => {
+function generateSWPrecacheConfig({ publicDir }, extraWorkboxBuildConfig) {
   const hexoPublicDir = publicDir;
-  // const rootPrefix = root.replace(/\/$/, "");
-  return Object.assign(
-    {
-      globPatterns: ["**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}"],
-      globDirectory: hexoPublicDir,
-      swDest: path.join(publicDir, workerName),
-    },
-    extraWorkboxBuildConfig
+  return {
+    globPatterns: [
+      "**/*.{js,mjs,html,css,png,jpg,gif,webp,svg,eot,ttf,woff,woff2}",
+    ],
+    globDirectory: hexoPublicDir,
+    swDest: path.join(publicDir, workerName),
+    ...extraWorkboxBuildConfig,
+  };
+}
+
+function formatNumber(number) {
+  try {
+    return new Intl.NumberFormat().format(number);
+  } catch {
+    return number;
+  }
+}
+
+function printSWResult({ count, size, warnings }, logger) {
+  for (const warning of warnings) {
+    logger.warn(warnings);
+  }
+  logger.info(
+    `Generated manifests for ${formatNumber(
+      count
+    )} files. Total size: ${formatNumber(size)} bytes.`
   );
-};
-
-const runWorkboxBuild = function () {
-  const { public_dir: publicDir, config } = this;
-
-  const { root, offline } = config;
+}
+export default async function runWorkboxBuild() {
+  const {
+    public_dir: publicDir,
+    base_dir: baseDir,
+    config,
+    log: logger,
+  } = this;
 
   // early return when no index.html presets in public directory
   const indexHTMLPath = path.join(publicDir, "index.html");
@@ -30,12 +47,24 @@ const runWorkboxBuild = function () {
     return Promise.resolve();
   }
 
-  const SWPrecacheConfig = generateSWPrecacheConfig(
-    { root, publicDir },
-    offline
-  );
+  let offline;
+  if ("offline" in config) {
+    logger.warn(`
+Starting from hexo-offline v2 the 'offline' config in _config.yaml is
+deprecated. Please create 'hexo-offline.config.cjs' in hexo root directory.
+See https://github.com/JLHwung/hexo-offline#usage for more info.
+`);
+    offline = config.offline;
+  }
+  try {
+    offline = require(path.resolve(baseDir, "hexo-offline.config.cjs"));
+  } catch {}
 
-  return generateSW(SWPrecacheConfig);
-};
+  const SWPrecacheConfig = generateSWPrecacheConfig({ publicDir }, offline);
 
-export default runWorkboxBuild;
+  const result = await generateSW(SWPrecacheConfig);
+
+  printSWResult(result, logger);
+
+  return result;
+}

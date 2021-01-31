@@ -6,7 +6,7 @@
 [![Dependencies Status](https://img.shields.io/david/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline)
 [![Dev Dependencies Status](https://img.shields.io/david/dev/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline?type=dev)
 
-hexo-offline is intended to provide offline experience for [hexo](https://hexo.io) built static website. It uses _ServiceWorker_ under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
+hexo-offline is intended to provide [offline experience](https://web.dev/progressive-web-apps/) for [hexo](https://hexo.io) built static website. It uses _ServiceWorker_ under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
 
 See [here]() for v1 docs.
 
