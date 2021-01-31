@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
-import runSWPrecache from "../../src/lib/run-sw-precache";
+import runWorkboxBuild from "../../src/lib/run-workbox-build";
 import { workerName } from "../../src/lib/constants";
 
-test("run-sw-precache should generate service-worker.js when index.html presents", () => {
-  const publicDir = path.resolve("./run-sw-precache.spec");
+test("run-workbox-build should generate service-worker.js when index.html presents", () => {
+  const publicDir = path.resolve("./run-workbox-build.spec");
   fs.mkdirSync(publicDir);
 
   const html = ["<html>", "<body></body>", "</html>"].join("\n");
@@ -15,9 +15,8 @@ test("run-sw-precache should generate service-worker.js when index.html presents
     public_dir: publicDir,
     config: {
       root: "/",
-      offline: {}
+      offline: {},
     },
-    log: console
   };
 
   const cleanup = () => {
@@ -25,44 +24,44 @@ test("run-sw-precache should generate service-worker.js when index.html presents
     fs.rmdirSync(publicDir);
   };
 
-  return runSWPrecache.call(context).then(
+  return runWorkboxBuild.call(context).then(
     () => {
       const workerPath = path.join(publicDir, workerName);
       expect(fs.existsSync(workerPath)).toBe(true);
       fs.unlinkSync(workerPath);
       cleanup();
     },
-    error => {
+    (error) => {
       console.error(error);
       cleanup();
     }
   );
 });
 
-test("run-sw-precache should not generate service-worker.js when index.html is not found", () => {
-  const publicDir = path.resolve("./run-sw-precache.spec");
+test("run-workbox-build should not generate service-worker.js when index.html is not found", () => {
+  const publicDir = path.resolve("./run-workbox-build.spec");
   fs.mkdirSync(publicDir);
 
   const context = {
     public_dir: publicDir,
     config: {
       root: "/",
-      offline: {}
+      offline: {},
     },
-    log: console
+    log: console,
   };
 
   const cleanup = () => {
     fs.rmdirSync(publicDir);
   };
 
-  return runSWPrecache.call(context).then(
+  return runWorkboxBuild.call(context).then(
     () => {
       const workerPath = path.join(publicDir, workerName);
       expect(fs.existsSync(workerPath)).toBe(false);
       cleanup();
     },
-    error => {
+    (error) => {
       console.error(error);
       cleanup();
     }
