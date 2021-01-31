@@ -1,14 +1,14 @@
 # hexo-offline
 
 [![npm version](https://img.shields.io/npm/v/hexo-offline.svg?style=flat-square)](https://www.npmjs.com/package/hexo-offline)
-![Build Status](https://img.shields.io/github/workflow/status/JLHwung/hexo-offline/ci)
+![Build Status](https://img.shields.io/github/workflow/status/JLHwung/hexo-offline/ci.svg?style=flat-square)
 [![Coverage Status](https://img.shields.io/coveralls/JLHwung/hexo-offline.svg?style=flat-square)](https://coveralls.io/github/JLHwung/hexo-offline)
 [![Dependencies Status](https://img.shields.io/david/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline)
 [![Dev Dependencies Status](https://img.shields.io/david/dev/JLHwung/hexo-offline.svg?style=flat-square)](https://david-dm.org/JLHwung/hexo-offline?type=dev)
 
 hexo-offline is intended to provide [offline experience](https://web.dev/progressive-web-apps/) for [hexo](https://hexo.io) built static website. It uses _ServiceWorker_ under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.
 
-See [here]() for v1 docs.
+See [here](https://github.com/JLHwung/hexo-offline/tree/v1) for v1 docs.
 
 ## Demo
 
@@ -72,7 +72,3 @@ Note:
 
 1. As the CDN resources is runtime cached, it means that the resource will be cached only after a user-agent visit the page where the resource is referenced. Therefore, if you have included a CDN resource `example.com/script.js` in `some-page.html` only, the user who visit `index.html` only would not have `example.com/script.js` in cache.
 1. we use `cacheFirst` handler as CDN resources with specific version are not supposed to change in the future.
-
-```
-
-```
