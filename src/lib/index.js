@@ -1,6 +1,7 @@
-import runSWPrecache from "./run-sw-precache";
+import runWorkBoxBuild from "./run-workbox-build";
 import injectSWRegister from "./inject-sw-register";
 
-export default function() {
-  return runSWPrecache.call(this).then(() => injectSWRegister(this.public_dir));
+export default async function () {
+  await runWorkBoxBuild.call(this);
+  return injectSWRegister(this.public_dir);
 }

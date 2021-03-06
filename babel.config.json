@@ -1,0 +1,23 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": { "node": "12.17" }
+      }
+    ]
+  ],
+  "overrides": [
+    {
+      "test": ["./src/lib/template.js"],
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "forceAllTransforms": true
+          }
+        ]
+      ]
+    }
+  ]
+}
