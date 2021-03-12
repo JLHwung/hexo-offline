@@ -1,3 +1,10 @@
+## 2.0.0 (2021-03-12)
+
+##### Breaking Changes
+
+- use workbox-build (#138) (8208bef7)
+- drop node < 10 support (4711dad5)
+
 #### 1.0.1 (2018-12-06)
 
 ##### Chores
