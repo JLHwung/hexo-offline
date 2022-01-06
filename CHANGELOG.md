@@ -1,3 +1,11 @@
+#### 2.0.1 (2022-01-06)
+
+##### Chores
+
+*  support Hexo v6 (#143) (2ad4305)
+*  update renovate config (3fe78f7f)
+* **deps:**  update coverallsapp/github-action action to v1.1.3 (#144) (05269257)
+
 ## 2.0.0 (2021-03-12)
 
 ##### Breaking Changes
