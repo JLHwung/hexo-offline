@@ -3496,7 +3496,7 @@ fsevents@^1.2.7:
     workbox-build: ^6.1.0
     yaspeller-ci: ^1.0.2
   peerDependencies:
-    hexo: ^5.0.0
+    hexo: ^6.0.0
   languageName: unknown
   linkType: soft
 
