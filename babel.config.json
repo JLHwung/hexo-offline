@@ -2,9 +2,7 @@
   "presets": [
     [
       "@babel/preset-env",
-      {
-        "targets": { "node": "12.17" }
-      }
+      { "bugfixes": true, "targets": { "node": "12.17" } }
     ]
   ],
   "overrides": [
