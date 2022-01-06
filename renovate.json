@@ -1,7 +1,7 @@
 {
-  "devDependencies": {
-    "automerge": true
-  },
+  "automerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
   "rangeStrategy": "replace",
   "extends": [
     "config:base"
