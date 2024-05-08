@@ -76,6 +76,6 @@ jobs:
           yarn spellcheck
       - name: Coveralls GitHub Action
         if: matrix.node-version == '*'
-        uses: coverallsapp/github-action@v1.2.5
+        uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.github_token }}
