@@ -3609,7 +3609,7 @@ fsevents@^1.2.7:
     "@babel/cli": ^7.8.0
     "@babel/core": ^7.8.0
     "@babel/preset-env": ^7.8.0
-    husky: ^8.0.0
+    husky: ^9.0.0
     jest: ^27.4.7
     lint-staged: ^12.1.5
     prettier: ^2.5.1
@@ -3677,12 +3677,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "husky@npm:8.0.0"
+"husky@npm:^9.0.0":
+  version: 9.0.11
+  resolution: "husky@npm:9.0.11"
   bin:
-    husky: lib/bin.js
-  checksum: b6b842abdd1bbc9322ad0c2003471fa35f94c9c01fccef3a6b5262f53e3f1bde1d78787f8a96ed8ef8a15ab3a7d56c83f576afd1cf7618588df77940044081df
+    husky: bin.mjs
+  checksum: 1aebc3334dc7ac6288ff5e1fb72cfb447cfa474e72cf7ba692e8c5698c573ab725c28c6a5088c9f8e6aca5f47d40fa7261beffbc07a4d307ca21656dc4571f07
   languageName: node
   linkType: hard
 
