@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { workerName } from "./constants";
+import { workerName } from "./constants.js";
 
 const template = fs.readFileSync(
   path.join(__dirname, "./template.js"),
