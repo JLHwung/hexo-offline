@@ -11,8 +11,7 @@
     "build:template": "babel src/lib/template.js --out-file lib/lib/template.js && terser lib/lib/template.js -o lib/lib/template.js",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
-    "test": "node --test test/**/*.test.js",
-    "spellcheck": "yaspeller-ci README.md",
+    "test": "node --test",
     "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
   "dependencies": {
@@ -25,8 +24,7 @@
     "husky": "^9.1.5",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
-    "terser": "^5.31.6",
-    "yaspeller-ci": "^1.0.2"
+    "terser": "^5.31.6"
   },
   "peerDependencies": {
     "hexo": "^5.0.0 || ^6.0.0"
