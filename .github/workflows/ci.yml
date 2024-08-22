@@ -3,7 +3,6 @@ name: CI
 on: [push, pull_request]
 
 env:
-  YARN_NODE_LINKER: pnp # use pnp linker for better linking performance
   YARN_ENABLE_SCRIPTS: false # disable post-install scripts
 
 jobs:
@@ -57,7 +56,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Test
         run: |
-          node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage
+          node --test --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage
       - name: Coveralls GitHub Action
         if: matrix.node-version == '*'
         uses: coverallsapp/github-action@v2
