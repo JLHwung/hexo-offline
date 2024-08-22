@@ -50,6 +50,9 @@ jobs:
         run: |
           yarn install
           yarn add --dev hexo@${{ matrix.hexo-version }}
+      - name: Build
+        run: |
+          yarn build
       - name: Use Node.js ${{ matrix.node-version }} # Checkout node version for test executor
         uses: actions/setup-node@v3
         with:
