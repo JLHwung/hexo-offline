@@ -36,7 +36,7 @@ jobs:
           - node-version: latest
             os: ubuntu-latest
             hexo-version: 6
-            coverage: true
+            coverage: 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
