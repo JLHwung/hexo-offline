@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: ["*", 20, 18]
+        node-version: [latest, 20, 18]
         os: ["ubuntu-latest", "windows-latest"]
         hexo-version: [6]
     steps:
@@ -38,14 +38,8 @@ jobs:
       - name: Use Node.js latest # Run yarn on latest node
         uses: actions/setup-node@v3
         with:
-          node-version: "*" # Build Babel on latest node LTS versions
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v3
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-${{ hashFiles('yarn.lock') }}
+          node-version: latest
+          cache: "yarn"
       - name: Install
         run: |
           yarn install
@@ -58,10 +52,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Test
+        if: matrix.node-version != 'latest'
+        run: |
+          node --test
+      - name: Test with coverage
+        if: matrix.node-version == 'latest'
         run: |
           node --test --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage
       - name: Coveralls GitHub Action
-        if: matrix.node-version == '*'
+        if: matrix.node-version == 'latest'
         uses: coverallsapp/github-action@v2
         with:
           file: coverage
