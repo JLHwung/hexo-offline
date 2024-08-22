@@ -1,7 +1,7 @@
 # hexo-offline
 
 [![npm version](https://img.shields.io/npm/v/hexo-offline.svg?style=flat-square)](https://www.npmjs.com/package/hexo-offline)
-![Build Status](https://img.shields.io/github/workflow/status/JLHwung/hexo-offline/CI.svg?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/JLHwung/hexo-offline/ci.yml?branch=main&style=flat-square)
 [![Coverage Status](https://img.shields.io/coveralls/JLHwung/hexo-offline.svg?style=flat-square)](https://coveralls.io/github/JLHwung/hexo-offline)
 
 hexo-offline is intended to provide [offline experience](https://web.dev/progressive-web-apps/) for [hexo](https://hexo.io) built static website. It uses _ServiceWorker_ under the hood. Simply install this plugin to your website and it should be offline ready by caching most of static assets.

@@ -11,32 +11,29 @@
     "build:template": "babel src/lib/template.js --out-file lib/lib/template.js && terser lib/lib/template.js -o lib/lib/template.js",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
-    "test": "jest",
-    "spellcheck": "yaspeller-ci README.md",
+    "test": "node --test",
     "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
   "dependencies": {
     "workbox-build": "^6.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.0",
-    "@babel/core": "^7.8.0",
-    "@babel/preset-env": "^7.8.0",
-    "husky": "^8.0.0",
-    "jest": "^27.4.7",
-    "lint-staged": "^12.1.5",
-    "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
-    "terser": "^5.10.0",
-    "yaspeller-ci": "^1.0.2"
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3",
+    "terser": "^5.31.6"
   },
   "peerDependencies": {
     "hexo": "^5.0.0 || ^6.0.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "files": [
     "lib"
-  ]
+  ],
+  "packageManager": "yarn@4.4.0"
 }
