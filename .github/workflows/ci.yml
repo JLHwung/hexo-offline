@@ -32,6 +32,11 @@ jobs:
         node-version: [latest, 20, 18]
         os: ["ubuntu-latest", "windows-latest"]
         hexo-version: [6]
+        include:
+          - node-version: latest
+            os: ubuntu-latest
+            hexo-version: 6
+            coverage: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -52,15 +57,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Test
-        if: matrix.node-version != 'latest'
+        if: ${{ matrix.coverage == '' }}
         run: |
           node --test
       - name: Test with coverage
-        if: matrix.node-version == 'latest'
+        if: ${{ matrix.coverage == 'true' }}
         run: |
           node --test --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage
       - name: Coveralls GitHub Action
-        if: matrix.node-version == 'latest'
+        if: ${{ matrix.coverage == 'true' }}
         uses: coverallsapp/github-action@v2
         with:
           file: coverage
