@@ -14,21 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Use Node.js latest
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "*"
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-
+          node-version: latest
+          cache: "yarn"
       - name: Check Yarn dedupe
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: |
           yarn dedupe --check
       - name: Check or update Yarn cache
