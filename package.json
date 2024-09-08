@@ -15,7 +15,7 @@
     "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
   "dependencies": {
-    "workbox-build": "^6.4.2"
+    "workbox-build": "^7.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.0",
