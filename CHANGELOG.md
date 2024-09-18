@@ -1,3 +1,28 @@
+## 3.0.0 (2024-09-18)
+
+##### Breaking Changes
+- bump workbox-build to v7 (#184) (da4bc603)
+- requires Node.js >= 18
+
+##### Chores
+
+* declare hexo 7.0 support (08d7411c)
+* **deps:**
+  *  update actions/checkout action to v4 (#186) (ec73fb9c)
+  *  update yarn to v4.5.0 (#185) (a03c1c62)
+  *  bump micromatch from 4.0.7 to 4.0.8 (#183) (efc8681e)
+  *  update yarn to v4.4.1 (#182) (6f5d7c9f)
+  *  bump ajv from 6.12.0 to 6.12.6 (#181) (211571b5)
+  *  update deps (18ae1ff2)
+  *  bump semver from 5.7.1 to 5.7.2 (#178) (5088120b)
+  *  run yarn dedupe after renovate updates (f0c5fd21)
+  *  update dependency terser to v5.14.2 [security] (#160) (47504c63)
+  *  update coverallsapp/github-action action to v1.2.5 (#158) (75858cbb)
+  *  update dependency husky to v8 (#151) (72484b2b)
+  *  update actions/cache action to v3 (#149) (6b59dbda)
+  *  update actions/checkout action to v3 (#148) (5eebac98)
+  *  update actions/setup-node action to v3 (#147) (8ee92457)
+
 #### 2.0.1 (2022-01-06)
 
 ##### Chores
