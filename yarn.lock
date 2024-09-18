@@ -2584,7 +2584,7 @@ __metadata:
     terser: "npm:^5.31.6"
     workbox-build: "npm:^7.1.1"
   peerDependencies:
-    hexo: ^5.0.0 || ^6.0.0
+    hexo: ^5.0.0 || ^6.0.0 || ^7.0.0
   languageName: unknown
   linkType: soft
 
