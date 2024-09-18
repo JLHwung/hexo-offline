@@ -1,6 +1,6 @@
 {
   "name": "hexo-offline",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Out-of-the-box hexo offline experience",
   "main": "lib/index.js",
   "repository": "https://github.com/JLHwung/hexo-offline.git",
