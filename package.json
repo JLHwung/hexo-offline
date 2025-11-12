@@ -15,7 +15,7 @@
     "prepublishOnly": "npm run test && npm run clean && npm run build"
   },
   "dependencies": {
-    "workbox-build": "^7.1.1"
+    "workbox-build": "^7.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.0",
@@ -27,10 +27,10 @@
     "terser": "^5.31.6"
   },
   "peerDependencies": {
-    "hexo": "^8.0.0"
+    "hexo": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "files": [
     "lib"

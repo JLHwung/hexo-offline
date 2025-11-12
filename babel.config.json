@@ -17,7 +17,7 @@
     "skipForOfIteratorClosing": true,
     "superIsCallableConstructor": true
   },
-  "targets": { "node": "18.0" },
+  "targets": { "node": "20.0" },
   "presets": [
     [
       "@babel/preset-env",
