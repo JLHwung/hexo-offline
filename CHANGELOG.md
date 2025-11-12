@@ -1,3 +1,37 @@
+## 4.0.0 (2025-11-12)
+
+##### Breaking Changes
+
+*  drop Node.js 18 support (4624cfb0)
+
+##### Chores
+
+* **deps:**
+  *  update yarn to v4.11.0 (#211) (d872ce90)
+  *  update yarn to v4.10.3 (#208) (1fcc2444)
+  *  update actions/setup-node action to v6 (#210) (17933aca)
+  *  update yarn to v4.10.0 (#207) (ea5af0b1)
+  *  update dependency hexo to v8 (#206) (520a1905)
+  *  update actions/setup-node action to v5 (#205) (32e08c7c)
+  *  update yarn to v4.9.4 (#204) (5c11d0cb)
+  *  update yarn to v4.9.3 (#203) (f91a20ed)
+  *  update actions/checkout action to v5 (#202) (9c9191b5)
+  *  bump brace-expansion from 1.1.11 to 1.1.12 (#201) (6a2c7cfb)
+  *  update yarn to v4.9.2 (#200) (d8aa15d6)
+  *  update dependency lint-staged to v16 (#199) (0c29841d)
+  *  update yarn to v4.9.1 (#198) (cca1dcc2)
+  *  update yarn to v4.9.0 (#197) (5d26cf38)
+  *  bump @babel/helpers from 7.25.0 to 7.27.0 (#196) (f018e493)
+  *  bump @babel/runtime from 7.12.5 to 7.27.0 (#195) (59ee641d)
+  *  update yarn to v4.8.0 (#194) (bb7a8d22)
+  *  update yarn to v4.7.0 (#193) (7df5e492)
+  *  update yarn to v4.6.0 (#192) (99fdee92)
+  *  update yarn to v4.5.3 (#191) (a577a024)
+  *  update yarn to v4.5.2 (#190) (b52c8b74)
+  *  update yarn to v4.5.1 (#188) (188ecbe3)
+  *  bump cross-spawn from 7.0.3 to 7.0.6 (#189) (aa7d687c)
+  *  bump rollup from 2.79.1 to 2.79.2 (#187) (2d90327b)
+
 ## 3.0.0 (2024-09-18)
 
 ##### Breaking Changes
