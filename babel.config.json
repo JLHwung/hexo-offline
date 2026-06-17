@@ -20,8 +20,7 @@
   "targets": { "node": "20.0" },
   "presets": [
     [
-      "@babel/preset-env",
-      { "bugfixes": true }
+      "@babel/preset-env"
     ]
   ],
   "overrides": [
