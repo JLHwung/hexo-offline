@@ -4,5 +4,5 @@
   "automergeStrategy": "squash",
   "postUpdateOptions": ["yarnDedupeHighest"],
   "rangeStrategy": "replace",
-  "extends": ["config:base"]
+  "extends": ["config:recommended"]
 }
