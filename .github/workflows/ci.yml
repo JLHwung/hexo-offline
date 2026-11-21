@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [latest, 20, 18]
+        node-version: [latest, 26, 24, 22, 20]
         os: ["ubuntu-latest", "windows-latest"]
         hexo-version: [6]
         include:
