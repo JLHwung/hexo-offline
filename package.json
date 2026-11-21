@@ -7,12 +7,12 @@
   "author": "Huáng Jùnliàng <hexo-offline@jhuang.me>",
   "license": "BSD-2-Clause",
   "scripts": {
-    "clean": "rimraf lib && rimraf run-workbox-build.spec",
+    "clean": "node -e \"fs.rmSync('lib', { recursive: true, force: true })\"",
     "build:template": "babel src/lib/template.js --out-file lib/lib/template.js && terser lib/lib/template.js -o lib/lib/template.js",
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
     "test": "node --test",
-    "prepublishOnly": "npm run test && npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "dependencies": {
     "workbox-build": "^7.3.0"
