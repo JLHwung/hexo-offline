@@ -1,0 +1,45 @@
+name: Publish
+
+on:
+  push:
+    tags: ["[0-9]+.[0-9]+.[0-9]+"]
+
+permissions:
+  contents: read
+
+env:
+  YARN_ENABLE_SCRIPTS: false # disable post-install scripts
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Use Node.js latest
+        uses: actions/setup-node@v7
+        with:
+          node-version: latest
+          registry-url: "https://registry.npmjs.org"
+      - name: Check tag matches package version
+        run: |
+          test "$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
+      - name: Install
+        run: |
+          yarn install --immutable
+      - name: Build
+        run: |
+          yarn build
+      - name: Test
+        run: |
+          node --test
+      - name: Publish
+        # The package is already built and tested above, so skip prepublishOnly.
+        # Authentication uses the trusted publisher configured on npmjs.com,
+        # no NPM_TOKEN is needed.
+        run: |
+          npm publish --ignore-scripts
