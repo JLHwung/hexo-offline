@@ -20,7 +20,8 @@
   "targets": { "node": "20.0" },
   "presets": [
     [
-      "@babel/preset-env"
+      "@babel/preset-env",
+      { "modules": "commonjs" }
     ]
   ],
   "overrides": [
