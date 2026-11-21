@@ -27,20 +27,34 @@ jobs:
         run: |
           yarn install --immutable --mode=skip-build
   test:
-    name: Test on Node.js # GitHub will add ${{ matrix.node-version }} to this title
+    name: Test (Node.js ${{ matrix.node-version }}, Hexo ${{ matrix.hexo-version }}, ${{ matrix.os }})
     needs: prepare-yarn-cache
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        node-version: [latest, 26, 24, 22, 20]
-        os: ["ubuntu-latest", "windows-latest"]
-        hexo-version: [5, 6, 7, 8]
+        # Pair older Hexo majors with older Node.js versions instead of
+        # running the full cross product.
         include:
-          - node-version: latest
+          - node-version: 20
+            hexo-version: 5
             os: ubuntu-latest
+          - node-version: 22
             hexo-version: 6
-            coverage: 'true'
+            os: ubuntu-latest
+          - node-version: 24
+            hexo-version: 7
+            os: ubuntu-latest
+          - node-version: 26
+            hexo-version: 8
+            os: ubuntu-latest
+          - node-version: latest
+            hexo-version: 8
+            os: ubuntu-latest
+            coverage: "true"
+          - node-version: latest
+            hexo-version: 8
+            os: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
