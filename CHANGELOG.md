@@ -1,3 +1,65 @@
+## 5.0.0 (2026-11-21)
+
+##### Breaking Changes
+
+*  generate the service worker with the rest of the site (#114, #93) (2f822d98)
+*  activate updated service workers without waiting (#141) (29392ab1)
+
+##### Migrating from 4.x
+
+* Remove `globDirectory` and `swDest` from `hexo-offline.config.cjs`. They are ignored with a warning: the service worker is now built from the files Hexo generates and is always written to `service-worker.js` in the public folder. Other glob options, such as `globPatterns` and `globIgnores`, are matched against those generated files, relative to the public folder.
+* `hexo generate --deploy` and `hexo deploy --generate` now deploy the service worker, so you no longer need to run `hexo generate` and `hexo deploy` separately. A plain `hexo deploy` with an existing public folder still deploys it as it is.
+* `hexo server` and `hexo generate --watch` no longer generate a service worker. After a watch build, run `hexo generate` before deploying. To try the service worker locally, serve the generated public folder on a different port from the one you use for `hexo server`.
+* A new service worker now takes over as soon as it is installed (`skipWaiting: true` and `clientsClaim: true`), so a refresh after a deploy shows the new content. To keep the previous behaviour, for example if your site asks users before applying updates, set both to `false` in `hexo-offline.config.cjs`.
+* Node.js ^20.17.0 or >=22.5.0 is required.
+* Run `hexo clean` once after upgrading, so files v4 wrote directly to the public folder (such as an old `workbox-*.js`) are removed.
+
+##### Chores
+
+* **deps:**
+  *  bump brace-expansion from 2.1.1 to 2.1.8 (#246) (cd8ed077)
+  *  bump tar from 7.5.16 to 7.5.23 (#238) (1a1c8405)
+  *  bump browserslist from 4.28.2 to 4.29.6 (#243) (cb24524a)
+  *  bump undici from 6.27.0 to 6.29.1 (#245) (0eb76a88)
+  *  bump serialize-javascript from 7.0.5 to 7.1.4 (#247) (7441a3c9)
+  *  bump fast-uri from 3.1.2 to 3.1.9 (#248) (6c7898c8)
+  *  update yarn to v4.19.0 (#234) (cc540735)
+  *  update actions/setup-node action to v7 (#235) (1e9907e3)
+  *  update actions/checkout action to v7 (#233) (11f94871)
+  *  update dependency @babel/core to v7.29.6 [security] (#231) (b1e21fc0)
+  *  update yarn monorepo to v4.17.0 (#229) (b2c94cdf)
+  *  update yarn to v4.16.0 (#228) (c8720ec8)
+  *  update yarn to v4.15.0 (#227) (0a92c7fb)
+  *  update dependency lint-staged to v17 (#225) (236b5411)
+  *  bump brace-expansion from 1.1.12 to 1.1.13 (#221) (3e9fd08b)
+  *  update yarn to v4.14.1 (#224) (d21ab4c8)
+  *  update yarn to v4.14.0 (#223) (c369a504)
+  *  update yarn to v4.13.0 (#219) (0ef55511)
+  *  bump rollup from 2.79.2 to 2.80.0 (#217) (d33de790)
+  *  bump lodash from 4.17.21 to 4.17.23 (#214) (3af96498)
+  *  update yarn to v4.12.0 (#213) (517d8262)
+  *  update actions/checkout action to v6 (#212) (3fdc67e0)
+*  make prepublishOnly work on a clean checkout (34ec3c78)
+*  migrate Renovate config to config:recommended (2afa6028)
+*  bump @babel/* to 8.1.0 (6c829d37)
+*  update all transitive deps (254ff249)
+*  bump Babel to 8.0.0 (7bc19ed3)
+
+##### Continuous Integration
+
+*  publish to npm with OIDC trusted publishing (a3281b38)
+*  reduce test matrix and pair old Hexo with old Node.js (60159320)
+*  limit CI push trigger to main only (ecf4cd84)
+*  disable fail-fast in test matrix (30ed7b4f)
+*  test against Hexo 5, 6, 7 and 8 (3bd7baca)
+*  test on Node.js 20, 22, 24, 26 and drop 18 (41757f0b)
+
+##### Bug Fixes
+
+*  compile lib to CommonJS under Babel 8 (fbc46644)
+*  log each workbox-build warning once (29392ab1)
+*  report a hexo-offline.config.cjs that fails to load instead of ignoring it (29392ab1)
+
 ## 4.0.0 (2025-11-12)
 
 ##### Breaking Changes
