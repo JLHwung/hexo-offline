@@ -11,6 +11,11 @@ function generateSWPrecacheConfig({ publicDir }, extraWorkboxBuildConfig) {
     ],
     globDirectory: hexoPublicDir,
     swDest: path.join(publicDir, workerName),
+    // Activate a new service worker as soon as it is installed instead of
+    // waiting for every open tab to close, so a refresh after a deploy
+    // serves the new content.
+    skipWaiting: true,
+    clientsClaim: true,
     ...extraWorkboxBuildConfig,
   };
 }
@@ -25,7 +30,7 @@ function formatNumber(number) {
 
 function printSWResult({ count, size, warnings }, logger) {
   for (const warning of warnings) {
-    logger.warn(warnings);
+    logger.warn(warning);
   }
   logger.info(
     `Generated manifests for ${formatNumber(
@@ -56,9 +61,20 @@ See https://github.com/JLHwung/hexo-offline#usage for more info.
 `);
     offline = config.offline;
   }
+  // A missing config file is fine. If it exists but fails to load, report it
+  // and still generate a service worker without it, rather than leaving the
+  // previous build's worker in place. Don't throw: this runs on before_exit,
+  // so throwing would fail every hexo command.
+  const configPath = path.resolve(baseDir, "hexo-offline.config.cjs");
   try {
-    offline = require(path.resolve(baseDir, "hexo-offline.config.cjs"));
-  } catch {}
+    if (fs.existsSync(configPath)) {
+      offline = require(configPath);
+    }
+  } catch (err) {
+    logger.error(
+      `hexo-offline: ignoring ${configPath} because it failed to load:\n${err?.stack ?? String(err)}`
+    );
+  }
 
   const SWPrecacheConfig = generateSWPrecacheConfig({ publicDir }, offline);
 

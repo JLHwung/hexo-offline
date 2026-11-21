@@ -32,10 +32,25 @@ module.exports = {
   globPatterns: ["**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}"],
   globDirectory: "/path/to/hexo/public",
   swDest: "/path/to/hexo/service-worker.js",
-},
+};
 ```
 
 Again, the config is demo only and you don't have to copy and paste if you serves all contents from the origin server.
+
+### Updating to new content
+
+By default hexo-offline sets `skipWaiting: true` and `clientsClaim: true`, so a newly deployed service worker takes over as soon as it is installed. After you deploy, the first page view may still show the cached content. The new service worker downloads the updated files in the background, and once it has finished installing, the next refresh or visit shows the new content.
+
+A page that is already open when the new service worker takes over keeps its old HTML, but any files it requests afterwards come from the new version. If a deploy renames or significantly changes theme scripts or styles, such a page may look or behave oddly until it is reloaded.
+
+To keep Workbox's default behaviour, where a new service worker waits until every tab of the site is closed, set both options to `false` in `hexo-offline.config.cjs`. If the file already exists, add them to the object it already exports rather than adding a second `module.exports`:
+
+```js
+module.exports = {
+  skipWaiting: false,
+  clientsClaim: false,
+};
+```
 
 ### What if content is served via CDN?
 
@@ -61,7 +76,7 @@ module.exports = {
       handler: "CacheFirst"
     }
   ]
-},
+};
 ```
 
 For more information, see [Workbox Runtime Caching Entry](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build?hl=en#.RuntimeCachingEntry).
