@@ -13,12 +13,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
-env:
-  YARN_ENABLE_SCRIPTS: false # disable post-install scripts
-
 jobs:
   prepare-yarn-cache:
-    name: Prepare Cache
+    name: Lint and Prepare Cache
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -35,6 +32,8 @@ jobs:
         run: yarn dedupe --check
       - name: Check or update Yarn cache
         run: yarn install --immutable --mode=skip-build
+      - name: Check formatting
+        run: yarn format:check
   test:
     name: Test (Node.js ${{ matrix.node-version }}, Hexo ${{ matrix.hexo-version }}, ${{ matrix.os }})
     needs: prepare-yarn-cache

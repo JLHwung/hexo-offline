@@ -18,12 +18,7 @@
     "superIsCallableConstructor": true
   },
   "targets": { "node": "20.0" },
-  "presets": [
-    [
-      "@babel/preset-env",
-      { "modules": "commonjs" }
-    ]
-  ],
+  "presets": [["@babel/preset-env", { "modules": "commonjs" }]],
   "overrides": [
     {
       "test": ["./src/lib/template.js"],

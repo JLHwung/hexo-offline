@@ -3,7 +3,10 @@
   "version": "5.0.0",
   "description": "Out-of-the-box hexo offline experience",
   "main": "lib/index.js",
-  "repository": "https://github.com/JLHwung/hexo-offline.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JLHwung/hexo-offline.git"
+  },
   "author": "Huáng Jùnliàng <hexo-offline@jhuang.me>",
   "license": "BSD-2-Clause",
   "scripts": {
@@ -12,7 +15,9 @@
     "build:lib": "babel src --out-dir lib",
     "build": "npm run build:lib && npm run build:template",
     "test": "node --test",
-    "prepublishOnly": "npm run clean && npm run build && npm run test"
+    "prepublishOnly": "npm run clean && npm run build && npm run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "workbox-build": "^7.3.0"
@@ -21,8 +26,7 @@
     "@babel/cli": "^8.1.0",
     "@babel/core": "^8.1.0",
     "@babel/preset-env": "^8.0.7",
-    "husky": "^9.1.5",
-    "lint-staged": "^17.0.0",
+    "hexo": "^8.1.2",
     "prettier": "^3.3.3",
     "terser": "^5.31.6"
   },
@@ -35,5 +39,13 @@
   "files": [
     "lib"
   ],
-  "packageManager": "yarn@4.19.0"
+  "packageManager": "yarn@4.19.0",
+  "keywords": [
+    "hexo",
+    "hexo-plugin",
+    "offline",
+    "service-worker",
+    "pwa",
+    "workbox"
+  ]
 }

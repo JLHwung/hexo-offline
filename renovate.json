@@ -1,8 +1,11 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "automerge": true,
   "automergeType": "pr",
   "automergeStrategy": "squash",
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
   "postUpdateOptions": ["yarnDedupeHighest"],
-  "rangeStrategy": "replace",
-  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"]
+  "rangeStrategy": "replace"
 }
