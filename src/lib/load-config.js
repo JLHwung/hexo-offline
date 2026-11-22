@@ -30,7 +30,7 @@ See https://github.com/JLHwung/hexo-offline#usage for more info.
     }
   } catch (err) {
     logger.error(
-      `hexo-offline: ignoring ${configPath} because it failed to load:\n${err?.stack ?? String(err)}`
+      `hexo-offline: ignoring ${configPath} because it failed to load:\n${err?.stack ?? String(err)}`,
     );
   }
 
@@ -39,7 +39,7 @@ See https://github.com/JLHwung/hexo-offline#usage for more info.
   }
   if (typeof offline !== "object") {
     logger.warn(
-      `hexo-offline: ignoring the offline config because it is not an object.`
+      `hexo-offline: ignoring the offline config because it is not an object.`,
     );
     return {};
   }
@@ -49,7 +49,7 @@ See https://github.com/JLHwung/hexo-offline#usage for more info.
     logger.warn(
       `hexo-offline: ignoring ${ignored.map((key) => `'${key}'`).join(" and ")}. ` +
         `Since hexo-offline v5 the service worker is built from the files Hexo ` +
-        `generates and is always written to '${workerName}' in the public folder.`
+        `generates and is always written to '${workerName}' in the public folder.`,
     );
     offline = { ...offline };
     for (const key of ignored) {

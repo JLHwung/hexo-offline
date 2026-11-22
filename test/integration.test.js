@@ -27,12 +27,12 @@ describe("Hexo integration", { skip: !Hexo && "hexo is not installed" }, () => {
         "skip_render: ['index.html']",
         "deploy:",
         "  type: probe",
-      ].join("\n")
+      ].join("\n"),
     );
     fs.mkdirSync(path.join(siteDir, "source"));
     fs.writeFileSync(
       path.join(siteDir, "source", "index.html"),
-      "<html>\n<body>\n<p>home</p>\n</body>\n</html>\n"
+      "<html>\n<body>\n<p>home</p>\n</body>\n</html>\n",
     );
 
     hexo = new Hexo(siteDir, { silent: true });
@@ -47,7 +47,10 @@ describe("Hexo integration", { skip: !Hexo && "hexo is not installed" }, () => {
     hexo.extend.deployer.register("probe", function () {
       deployed = {
         files: fs.readdirSync(this.public_dir).sort(),
-        indexHTML: fs.readFileSync(path.join(this.public_dir, "index.html"), "utf-8"),
+        indexHTML: fs.readFileSync(
+          path.join(this.public_dir, "index.html"),
+          "utf-8",
+        ),
       };
       return Promise.resolve();
     });
@@ -61,8 +64,13 @@ describe("Hexo integration", { skip: !Hexo && "hexo is not installed" }, () => {
     await hexo.call("generate", { deploy: true });
 
     assert.ok(deployed, "the deployer did not run");
-    assert.ok(deployed.files.includes("service-worker.js"), deployed.files.join(", "));
-    assert.ok(deployed.files.some((file) => /^workbox-[0-9a-f]+\.js$/.test(file)));
+    assert.ok(
+      deployed.files.includes("service-worker.js"),
+      deployed.files.join(", "),
+    );
+    assert.ok(
+      deployed.files.some((file) => /^workbox-[0-9a-f]+\.js$/.test(file)),
+    );
     assert.match(deployed.indexHTML, /navigator\.serviceWorker/);
   });
 });

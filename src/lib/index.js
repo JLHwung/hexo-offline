@@ -51,7 +51,7 @@ export default async function () {
     if (!warnedAboutWatch.has(this)) {
       warnedAboutWatch.add(this);
       logger.warn(
-        "hexo-offline: the service worker is not generated in watch mode, and Hexo removes the previously generated one from the public folder. Run `hexo generate` before deploying."
+        "hexo-offline: the service worker is not generated in watch mode, and Hexo removes the previously generated one from the public folder. Run `hexo generate` before deploying.",
       );
     }
     return;
@@ -67,7 +67,7 @@ export default async function () {
   } catch {
     // Leave the route alone: Hexo reports the error when it writes it.
     logger.warn(
-      "hexo-offline: not generating the service worker because index.html failed to generate."
+      "hexo-offline: not generating the service worker because index.html failed to generate.",
     );
     return;
   }
@@ -83,7 +83,7 @@ export default async function () {
       logger,
       config,
       this.public_dir,
-      getConcurrency(this)
+      getConcurrency(this),
     );
   } catch (err) {
     // Don't leave index.html registering a service worker that wasn't built.

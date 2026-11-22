@@ -36,14 +36,19 @@ function replaceGlobDirectory(warning, globDirectory, publicDir) {
     .replaceAll(globDirectory, () => target);
 }
 
-function printSWResult({ count, size, warnings }, logger, globDirectory, publicDir) {
+function printSWResult(
+  { count, size, warnings },
+  logger,
+  globDirectory,
+  publicDir,
+) {
   for (const warning of warnings) {
     logger.warn(replaceGlobDirectory(warning, globDirectory, publicDir));
   }
   logger.info(
     `Generated manifests for ${formatNumber(
-      count
-    )} files. Total size: ${formatNumber(size)} bytes.`
+      count,
+    )} files. Total size: ${formatNumber(size)} bytes.`,
   );
 }
 
@@ -100,10 +105,10 @@ async function forEachConcurrently(items, limit, fn) {
       while (next < items.length) {
         await fn(items[next++]);
       }
-    }
+    },
   );
   const failed = (await Promise.allSettled(workers)).find(
-    ({ status }) => status === "rejected"
+    ({ status }) => status === "rejected",
   );
   if (failed) {
     throw failed.reason;
@@ -123,11 +128,11 @@ export default async function runWorkboxBuild(
   logger,
   extraConfig,
   publicDir,
-  concurrency = defaultConcurrency
+  concurrency = defaultConcurrency,
 ) {
   if (typeof path.posix.matchesGlob !== "function") {
     throw new Error(
-      `hexo-offline requires Node.js ^20.17.0 or >=22.5.0 (current: ${process.version}).`
+      `hexo-offline requires Node.js ^20.17.0 or >=22.5.0 (current: ${process.version}).`,
     );
   }
   const workboxConfig = {
@@ -144,7 +149,7 @@ export default async function runWorkboxBuild(
   const ignores = toRoutePatterns(
     Array.isArray(workboxConfig.globIgnores)
       ? workboxConfig.globIgnores
-      : defaultGlobIgnores
+      : defaultGlobIgnores,
   );
   const maximumFileSize =
     workboxConfig.maximumFileSizeToCacheInBytes ?? defaultMaximumFileSize;
@@ -165,7 +170,7 @@ export default async function runWorkboxBuild(
         (routePath) =>
           !isGeneratedFile(routePath) &&
           matches(routePath, [...patterns.precache, ...patterns.templates]) &&
-          !matches(routePath, ignores)
+          !matches(routePath, ignores),
       );
     await forEachConcurrently(candidates, concurrency, async (routePath) => {
       let content;
@@ -174,7 +179,7 @@ export default async function runWorkboxBuild(
       } catch {
         // Hexo reports the error itself when it writes this route.
         logger.warn(
-          `hexo-offline: not precaching ${routePath} because it failed to generate.`
+          `hexo-offline: not precaching ${routePath} because it failed to generate.`,
         );
         return;
       }
@@ -195,10 +200,10 @@ export default async function runWorkboxBuild(
       ) {
         logger.warn(
           `hexo-offline: not precaching ${routePath} because it is ${formatNumber(
-            content.length
+            content.length,
           )} bytes, larger than maximumFileSizeToCacheInBytes (${formatNumber(
-            maximumFileSize
-          )}).`
+            maximumFileSize,
+          )}).`,
         );
         return;
       }
@@ -208,7 +213,7 @@ export default async function runWorkboxBuild(
         fs.writeFileSync(dest, content);
       } catch (err) {
         logger.warn(
-          `hexo-offline: not precaching ${routePath} because it could not be copied to a temporary folder: ${err.message}`
+          `hexo-offline: not precaching ${routePath} because it could not be copied to a temporary folder: ${err.message}`,
         );
       }
     });
@@ -233,7 +238,7 @@ export default async function runWorkboxBuild(
       fs.rmSync(tmpDir, { recursive: true, force: true, maxRetries: 3 });
     } catch (err) {
       logger.warn(
-        `hexo-offline: could not remove the temporary folder ${tmpDir}: ${err.message}`
+        `hexo-offline: could not remove the temporary folder ${tmpDir}: ${err.message}`,
       );
     }
   }

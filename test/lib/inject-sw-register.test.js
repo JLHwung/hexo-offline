@@ -7,8 +7,14 @@ describe("inject-sw-register", () => {
   it("should inject the register script before </body></html>", () => {
     const html = ["<html>", "<body>", "</body>  ", "</html>"].join("\n");
     const injected = injectSWRegister(html);
-    assert.match(injected, /^<html>\n<body>\n<script>.*<\/script><\/body><\/html>$/s);
-    assert.match(injected, /navigator\.serviceWorker\s*\.register\("service-worker\.js"\)/);
+    assert.match(
+      injected,
+      /^<html>\n<body>\n<script>.*<\/script><\/body><\/html>$/s,
+    );
+    assert.match(
+      injected,
+      /navigator\.serviceWorker\s*\.register\("service-worker\.js"\)/,
+    );
   });
 
   it("should not inject the script twice", () => {

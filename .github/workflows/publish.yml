@@ -7,9 +7,6 @@ on:
 permissions:
   contents: read
 
-env:
-  YARN_ENABLE_SCRIPTS: false # disable post-install scripts
-
 jobs:
   publish:
     name: Publish to npm
