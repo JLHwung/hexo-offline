@@ -37,9 +37,11 @@ jobs:
       - name: Test
         run: |
           node --test
-      - name: Publish
+      - name: Stage publish
         # The package is already built and tested above, so skip prepublishOnly.
         # Authentication uses the trusted publisher configured on npmjs.com,
-        # no NPM_TOKEN is needed.
+        # no NPM_TOKEN is needed. The staged version is released only after a
+        # maintainer approves it with 2FA, via `npm stage approve <stage-id>`
+        # or on npmjs.com.
         run: |
-          npm publish --ignore-scripts
+          npm stage publish --ignore-scripts
