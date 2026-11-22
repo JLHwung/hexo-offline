@@ -4,7 +4,7 @@ import { workerName } from "./constants.js";
 
 const template = fs.readFileSync(
   path.join(__dirname, "./template.js"),
-  "utf-8"
+  "utf-8",
 );
 
 const script = `<script>${template.replace("__workerName__", workerName)}</script>`;

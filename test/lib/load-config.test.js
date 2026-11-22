@@ -18,12 +18,19 @@ describe("load-config", () => {
   });
   const load = ({ configFile, config = {} } = {}) => {
     if (configFile !== undefined) {
-      fs.writeFileSync(path.join(baseDir, "hexo-offline.config.cjs"), configFile);
+      fs.writeFileSync(
+        path.join(baseDir, "hexo-offline.config.cjs"),
+        configFile,
+      );
     }
     const log = { error: mock.fn(), warn: mock.fn(), info: mock.fn() };
     const result = loadConfig({ base_dir: baseDir, config, log });
     const messages = (fn) => fn.mock.calls.map((call) => call.arguments[0]);
-    return { result, errors: messages(log.error), warnings: messages(log.warn) };
+    return {
+      result,
+      errors: messages(log.error),
+      warnings: messages(log.warn),
+    };
   };
 
   it("should return an empty config when there is none", () => {
@@ -34,14 +41,21 @@ describe("load-config", () => {
   });
 
   it("should load hexo-offline.config.cjs", () => {
-    const { result } = load({ configFile: "module.exports = { skipWaiting: false };" });
+    const { result } = load({
+      configFile: "module.exports = { skipWaiting: false };",
+    });
     assert.deepStrictEqual(result, { skipWaiting: false });
   });
 
   it("should warn about the deprecated 'offline' section in _config.yml", () => {
-    const { result, warnings } = load({ config: { offline: { clientsClaim: false } } });
+    const { result, warnings } = load({
+      config: { offline: { clientsClaim: false } },
+    });
     assert.deepStrictEqual(result, { clientsClaim: false });
-    assert.match(warnings[0], /'offline' config in _config\.yaml is\ndeprecated/);
+    assert.match(
+      warnings[0],
+      /'offline' config in _config\.yaml is\ndeprecated/,
+    );
   });
 
   it("should report an invalid hexo-offline.config.cjs and ignore it", () => {
@@ -50,12 +64,17 @@ describe("load-config", () => {
     });
     assert.deepStrictEqual(result, {});
     assert.strictEqual(errors.length, 1);
-    assert.match(errors[0], /ignoring .*hexo-offline\.config\.cjs because it failed to load/);
+    assert.match(
+      errors[0],
+      /ignoring .*hexo-offline\.config\.cjs because it failed to load/,
+    );
   });
 
   it("should pick up changes to hexo-offline.config.cjs", () => {
     load({ configFile: "module.exports = { skipWaiting: false };" });
-    const { result } = load({ configFile: "module.exports = { skipWaiting: true };" });
+    const { result } = load({
+      configFile: "module.exports = { skipWaiting: true };",
+    });
     assert.deepStrictEqual(result, { skipWaiting: true });
   });
 

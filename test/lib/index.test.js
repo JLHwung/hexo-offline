@@ -17,7 +17,7 @@ class FakeRouter {
       Object.entries(routes).map(([routePath, data]) => [
         routePath,
         { data, modified: true },
-      ])
+      ]),
     );
     this.renders = new Map();
   }
@@ -50,7 +50,7 @@ class FakeRouter {
       routePath,
       typeof data === "object" && data.data != null
         ? { modified: true, ...data }
-        : { data, modified: true }
+        : { data, modified: true },
     );
   }
   text(routePath) {
@@ -60,7 +60,16 @@ class FakeRouter {
 }
 
 const indexHTML = "<html><body><p>home</p></body></html>";
-const alias = { g: "generate", generate: "generate", d: "deploy", deploy: "deploy", s: "server", server: "server", l: "list", list: "list" };
+const alias = {
+  g: "generate",
+  generate: "generate",
+  d: "deploy",
+  deploy: "deploy",
+  s: "server",
+  server: "server",
+  l: "list",
+  list: "list",
+};
 
 describe("after_generate handler", () => {
   let baseDir;
@@ -72,10 +81,21 @@ describe("after_generate handler", () => {
   });
   const run = async (
     routes,
-    { configFile, config = {}, cmd = "generate", args = {}, setup, expectError = false, hexo = {} } = {}
+    {
+      configFile,
+      config = {},
+      cmd = "generate",
+      args = {},
+      setup,
+      expectError = false,
+      hexo = {},
+    } = {},
   ) => {
     if (configFile !== undefined) {
-      fs.writeFileSync(path.join(baseDir, "hexo-offline.config.cjs"), configFile);
+      fs.writeFileSync(
+        path.join(baseDir, "hexo-offline.config.cjs"),
+        configFile,
+      );
     }
     const route = new FakeRouter(routes);
     setup?.(route);
@@ -110,7 +130,10 @@ describe("after_generate handler", () => {
       "css/style.css": "body{}",
     });
     assert.ok(generated);
-    assert.match(route.text("index.html"), /serviceWorker.*<\/script><\/body><\/html>$/s);
+    assert.match(
+      route.text("index.html"),
+      /serviceWorker.*<\/script><\/body><\/html>$/s,
+    );
 
     const sw = route.text("service-worker.js");
     assert.ok(sw, "service-worker.js route is missing");
@@ -142,7 +165,10 @@ describe("after_generate handler", () => {
     assert.strictEqual(route.renders.get("index.html"), 1);
     assert.strictEqual(route.renders.get("about/index.html"), 1);
     // The rendered page is kept on the route for Hexo to write.
-    assert.strictEqual(route.text("about/index.html"), "<html><body>about</body></html>");
+    assert.strictEqual(
+      route.text("about/index.html"),
+      "<html><body>about</body></html>",
+    );
   });
 
   it("should keep rendered styles and scripts, but not other files", async () => {
@@ -158,13 +184,19 @@ describe("after_generate handler", () => {
     }
     assert.strictEqual(route.text("css/style.css"), "body{}");
     assert.strictEqual(route.text("js/app.js"), "app()");
-    assert.strictEqual(typeof route.routes.get("images/a.png").data, "function");
+    assert.strictEqual(
+      typeof route.routes.get("images/a.png").data,
+      "function",
+    );
   });
 
   it("should keep the modified flag of precached pages", async () => {
     const { route } = await run(
       { "index.html": indexHTML, "about/index.html": () => "<html></html>" },
-      { setup: (route) => (route.routes.get("about/index.html").modified = false) }
+      {
+        setup: (route) =>
+          (route.routes.get("about/index.html").modified = false),
+      },
     );
     assert.strictEqual(route.isModified("about/index.html"), false);
   });
@@ -191,7 +223,9 @@ describe("after_generate handler", () => {
     const sw = route.text("service-worker.js");
     assert.doesNotMatch(sw, /broken/);
     assert.match(sw, /url:"css\/style\.css"/);
-    assert.ok(warnings.some((w) => /not precaching broken\/index\.html/.test(w)));
+    assert.ok(
+      warnings.some((w) => /not precaching broken\/index\.html/.test(w)),
+    );
     // Left alone, so Hexo reports the render error when it writes the route.
     assert.strictEqual(route.routes.get("broken/index.html").data, broken);
   });
@@ -212,7 +246,7 @@ describe("after_generate handler", () => {
       {
         configFile:
           'module.exports = { skipWaiting: false, clientsClaim: false, globPatterns: ["**/*.html"] };',
-      }
+      },
     );
     const sw = route.text("service-worker.js");
     assert.match(sw, /SKIP_WAITING/);
@@ -223,7 +257,9 @@ describe("after_generate handler", () => {
   it("should accept glob patterns starting with ./", async () => {
     const { route } = await run(
       { "index.html": indexHTML, "css/style.css": "body{}" },
-      { configFile: 'module.exports = { globPatterns: ["./**/*.{html,css}"] };' }
+      {
+        configFile: 'module.exports = { globPatterns: ["./**/*.{html,css}"] };',
+      },
     );
     assert.match(route.text("service-worker.js"), /url:"css\/style\.css"/);
   });
@@ -234,7 +270,7 @@ describe("after_generate handler", () => {
       {
         configFile:
           'module.exports = { globPatterns: ["**/*.html", "**/*.does-not-exist"] };',
-      }
+      },
     );
     assert.strictEqual(warnings.length, 1);
     assert.strictEqual(typeof warnings[0], "string");
@@ -247,7 +283,7 @@ describe("after_generate handler", () => {
   it("should use the default glob patterns when globPatterns is null", async () => {
     const { route } = await run(
       { "index.html": indexHTML, "css/style.css": "body{}" },
-      { configFile: "module.exports = { globPatterns: null };" }
+      { configFile: "module.exports = { globPatterns: null };" },
     );
     assert.match(route.text("service-worker.js"), /url:"css\/style\.css"/);
   });
@@ -290,19 +326,25 @@ describe("after_generate handler", () => {
             templatedURLs: { "/app": ["js/bundle.js"] },
           },
         },
-      }
+      },
     );
     // Without the dependency, workbox-build fails because the templatedURLs
     // glob matches nothing. With it, workbox-build applies the size limit to
     // the templated URL itself and warns.
     assert.strictEqual(error, undefined);
-    assert.ok(warnings.some((w) => w.includes("/app")), warnings.join("\n"));
+    assert.ok(
+      warnings.some((w) => w.includes("/app")),
+      warnings.join("\n"),
+    );
     assert.ok(!warnings.some((w) => /not precaching js\/bundle\.js/.test(w)));
   });
 
   it("should not change the user's globIgnores", async () => {
     const globIgnores = ["images/**"];
-    await run({ "index.html": indexHTML }, { config: { offline: { globIgnores } } });
+    await run(
+      { "index.html": indexHTML },
+      { config: { offline: { globIgnores } } },
+    );
     assert.deepStrictEqual(globIgnores, ["images/**"]);
   });
 
@@ -313,7 +355,7 @@ describe("after_generate handler", () => {
         "images/a.png": () => Buffer.from("png"),
         "css/style.css": "body{}",
       },
-      { configFile: 'module.exports = { globIgnores: ["images/**"] };' }
+      { configFile: 'module.exports = { globIgnores: ["images/**"] };' },
     );
     assert.strictEqual(route.renders.get("images/a.png"), undefined);
     const sw = route.text("service-worker.js");
@@ -327,19 +369,27 @@ describe("after_generate handler", () => {
         "index.html": indexHTML,
         "images/big.png": () => Buffer.alloc(2048),
       },
-      { configFile: "module.exports = { maximumFileSizeToCacheInBytes: 1024 };" }
+      {
+        configFile: "module.exports = { maximumFileSizeToCacheInBytes: 1024 };",
+      },
     );
     assert.doesNotMatch(route.text("service-worker.js"), /big\.png/);
     assert.ok(
-      warnings.some((w) => /not precaching images\/big\.png because it is 2,048 bytes/.test(w)),
-      warnings.join("\n")
+      warnings.some((w) =>
+        /not precaching images\/big\.png because it is 2,048 bytes/.test(w),
+      ),
+      warnings.join("\n"),
     );
   });
 
   it("should let workbox-build report invalid glob patterns", async () => {
     const { error } = await run(
       { "index.html": indexHTML },
-      { configFile: 'module.exports = { globPatterns: ["**/*.html", /\\.css$/] };', expectError: true }
+      {
+        configFile:
+          'module.exports = { globPatterns: ["**/*.html", /\\.css$/] };',
+        expectError: true,
+      },
     );
     assert.ok(error);
     assert.doesNotMatch(error.message, /is not a function/);
@@ -348,7 +398,10 @@ describe("after_generate handler", () => {
   it("should restore index.html when building the service worker fails", async () => {
     const { route, generated, error } = await run(
       { "index.html": indexHTML },
-      { configFile: "module.exports = { notAWorkboxOption: true };", expectError: true }
+      {
+        configFile: "module.exports = { notAWorkboxOption: true };",
+        expectError: true,
+      },
     );
     assert.ok(error, "expected workbox-build to reject the config");
     assert.strictEqual(generated, false);
@@ -358,7 +411,7 @@ describe("after_generate handler", () => {
   it("should warn once that watch mode doesn't generate the service worker", async () => {
     const { route, warnings, generated, context } = await run(
       { "index.html": indexHTML },
-      { args: { watch: true } }
+      { args: { watch: true } },
     );
     await handler.call(context);
     assert.strictEqual(generated, false);
@@ -387,10 +440,16 @@ describe("after_generate handler", () => {
     ["'hexo list'", { cmd: "list" }],
     ["'hexo generate --watch'", { cmd: "generate", args: { watch: true } }],
     ["'hexo g -w'", { cmd: "g", args: { w: true } }],
-    ["Hexo watching through its API", { cmd: "", hexo: { _watchBox: () => {} } }],
+    [
+      "Hexo watching through its API",
+      { cmd: "", hexo: { _watchBox: () => {} } },
+    ],
   ]) {
     it(`should do nothing for ${label}`, async () => {
-      const { route, generated } = await run({ "index.html": indexHTML }, options);
+      const { route, generated } = await run(
+        { "index.html": indexHTML },
+        options,
+      );
       assert.strictEqual(generated, false);
       assert.deepStrictEqual(route.list(), ["index.html"]);
       assert.strictEqual(route.text("index.html"), indexHTML);
