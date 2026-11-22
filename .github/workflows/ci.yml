@@ -5,6 +5,14 @@ on:
     branches: ["main"]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  # Cancel superseded runs of the same pull request, let pushes to main finish.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   YARN_ENABLE_SCRIPTS: false # disable post-install scripts
 
@@ -12,24 +20,27 @@ jobs:
   prepare-yarn-cache:
     name: Prepare Cache
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
-      - name: Use Node.js latest
-        uses: actions/setup-node@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: latest
+          persist-credentials: false
+      - name: Use Node.js LTS
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
           cache: "yarn"
       - name: Check Yarn dedupe
-        run: |
-          yarn dedupe --check
+        run: yarn dedupe --check
       - name: Check or update Yarn cache
-        run: |
-          yarn install --immutable --mode=skip-build
+        run: yarn install --immutable --mode=skip-build
   test:
     name: Test (Node.js ${{ matrix.node-version }}, Hexo ${{ matrix.hexo-version }}, ${{ matrix.os }})
     needs: prepare-yarn-cache
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    continue-on-error: ${{ matrix.experimental || false }}
     strategy:
       fail-fast: false
       matrix:
@@ -48,42 +59,46 @@ jobs:
           - node-version: 26
             hexo-version: 8
             os: ubuntu-latest
+            coverage: true
+          - node-version: 26
+            hexo-version: 8
+            os: windows-latest
+          # `latest` can resolve to a Node.js pre-release (alpha), so this job
+          # is an early warning only and must not fail the workflow.
           - node-version: latest
             hexo-version: 8
             os: ubuntu-latest
-            coverage: "true"
-          - node-version: latest
-            hexo-version: 8
-            os: windows-latest
+            experimental: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
-      - name: Use Node.js latest # Run yarn on latest node
-        uses: actions/setup-node@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: latest
+          persist-credentials: false
+      - name: Use Node.js LTS # Run yarn and the build on the LTS release
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
           cache: "yarn"
+      # One command per step: on Windows (pwsh) only the last command's exit
+      # code fails a multi-line step.
       - name: Install
-        run: |
-          yarn install
-          yarn add --dev hexo@${{ matrix.hexo-version }}
+        run: yarn install --immutable
+      - name: Install Hexo ${{ matrix.hexo-version }}
+        run: yarn add --dev hexo@${{ matrix.hexo-version }}
       - name: Build
-        run: |
-          yarn build
+        run: yarn build
       - name: Use Node.js ${{ matrix.node-version }} # Checkout node version for test executor
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ matrix.node-version }}
       - name: Test
-        if: ${{ matrix.coverage == '' }}
-        run: |
-          node --test
+        if: ${{ !matrix.coverage }}
+        run: node --test
       - name: Test with coverage
-        if: ${{ matrix.coverage == 'true' }}
-        run: |
-          node --test --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage
+        if: ${{ matrix.coverage }}
+        run: node --test --experimental-test-coverage --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=coverage
       - name: Coveralls GitHub Action
-        if: ${{ matrix.coverage == 'true' }}
-        uses: coverallsapp/github-action@v2
+        if: ${{ matrix.coverage }}
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2.3.8
         with:
           file: coverage
